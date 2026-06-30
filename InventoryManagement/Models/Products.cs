@@ -8,6 +8,8 @@ namespace InventoryManagement.Models
         public int ProductPrice { get; protected set; }
         public int ProductStock { get; protected set; }
 
+        public string ProductType { get; protected set; } 
+
         public Products(int id, string name, int price, int stock)
         {
             if (string.IsNullOrWhiteSpace(name))

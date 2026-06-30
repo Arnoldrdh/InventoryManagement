@@ -17,6 +17,8 @@ namespace InventoryManagement.Models
             : base(id, name, price, stock)
         {
             WarrantyMonth = warrantyMonth;
+            ProductType = "Electronic";
+
         }
 
         public override void DisplayInfo()

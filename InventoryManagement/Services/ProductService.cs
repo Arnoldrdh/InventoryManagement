@@ -1,4 +1,5 @@
 ﻿using InventoryManagement.Models;
+using InventoryManagement.Repositories;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace InventoryManagement.Services
 {
     public class ProductService
     {
-        private List<Products> products = new List<Products>();
+        private ProductRepository repository = new ProductRepository();
         private int nextID = 1;
 
         public bool AddProductElectronic(string name, int price, int stock, int warrantyMonth)
@@ -14,7 +15,7 @@ namespace InventoryManagement.Services
             try
             {
                 Elektronic elektronic = new Elektronic(nextID++, name, price, stock, warrantyMonth);
-                products.Add(elektronic);
+                repository.Add(elektronic);
                 return true;
             }
             catch (ArgumentException ex)
@@ -29,7 +30,7 @@ namespace InventoryManagement.Services
             try
             {
                 Food food = new Food(nextID++, name, price, stock, expiredDate);
-                products.Add(food);
+                repository.Add(food);
                 return true;
             }
             catch (ArgumentException ex)
@@ -41,7 +42,7 @@ namespace InventoryManagement.Services
 
         public void ShowProduct()
         {
-            foreach (var item in products)
+            foreach (var item in repository.GetAll())
             {
                 item.DisplayInfo();
             }
@@ -49,7 +50,7 @@ namespace InventoryManagement.Services
 
         public bool ChangeProductPrice(int id, int newPrice)
         {
-            foreach (var product in products)
+            foreach (var product in repository.GetAll())
             {
                 if (product.ProductId == id)
                 {
@@ -62,7 +63,7 @@ namespace InventoryManagement.Services
 
         public bool IncreaseProductStock(int id, int quantity)
         {
-            foreach (var product in products)
+            foreach (var product in repository.GetAll())
             {
                 if (product.ProductId == id)
                 {
@@ -75,7 +76,7 @@ namespace InventoryManagement.Services
 
         public bool DecreaseProductStock(int id, int quantity)
         {
-            foreach (var product in products)
+            foreach (var product in repository.GetAll())
             {
                 if (product.ProductId == id)
                 {
@@ -89,7 +90,7 @@ namespace InventoryManagement.Services
 
         public bool ChangeProductName (int id,string newName)
         {
-            foreach (var product in products)
+            foreach (var product in repository.GetAll())
             {
                 if (product.ProductId == id)
                 {

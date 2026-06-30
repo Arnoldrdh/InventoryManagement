@@ -17,6 +17,7 @@ namespace InventoryManagement.Models
             : base(id, name, price, stock)
         {
             ExpiredDate = expiredDate;
+            ProductType = "Food";
         }
 
         public override void DisplayInfo()
