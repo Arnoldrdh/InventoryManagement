@@ -12,10 +12,12 @@ namespace InventoryManagement.Repositories
     {
         private const string FilePath = "product.json";
         private List<Products> products = new List<Products>();
+        private int nextID;
         
         public ProductRepository()
         {
             LoadFromFile();
+            nextID = CalculateNextID();
         }
 
         public Products MapToProduct(ProductData productData)
@@ -105,8 +107,33 @@ namespace InventoryManagement.Repositories
             }
         }
 
+        private int CalculateNextID()
+        {
+            int currentMaxID = 0;
 
-        
+            if (products.Count == 0)
+            {
+                return 1;
+            }
+            foreach (var product in products)
+            {
+                if(product.ProductId > currentMaxID) { 
+                    currentMaxID = product.ProductId;
+                }
+
+            }
+
+            return currentMaxID + 1;
+            
+        }
+
+        public int GenerateNextID()
+        {
+            return nextID++;
+        }
+
+
+
         public void Add(Products product)
         {
             products.Add(product);

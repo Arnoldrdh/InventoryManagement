@@ -14,7 +14,8 @@ namespace InventoryManagement.Services
         {
             try
             {
-                Elektronic elektronic = new Elektronic(nextID++, name, price, stock, warrantyMonth);
+                int productID = repository.GenerateNextID();
+                Elektronic elektronic = new Elektronic(productID, name, price, stock, warrantyMonth);
                 repository.Add(elektronic);
                 return true;
             }
@@ -29,7 +30,8 @@ namespace InventoryManagement.Services
         {
             try
             {
-                Food food = new Food(nextID++, name, price, stock, expiredDate);
+                int productID = repository.GenerateNextID();
+                Food food = new Food(productID, name, price, stock, expiredDate);
                 repository.Add(food);
                 return true;
             }
