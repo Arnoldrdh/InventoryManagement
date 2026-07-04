@@ -8,7 +8,7 @@ using InventoryManagement.Data;
 
 namespace InventoryManagement.Repositories
 {
-    public class ProductRepository
+    public class ProductRepository : IProductRepository
     {
         private const string FilePath = "product.json";
         private List<Products> products = new List<Products>();
@@ -18,7 +18,7 @@ namespace InventoryManagement.Repositories
         {
             LoadFromFile();
             nextID = CalculateNextID();
-        }
+        } 
 
         public Products MapToProduct(ProductData productData)
         {
