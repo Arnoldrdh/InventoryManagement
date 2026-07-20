@@ -1,4 +1,5 @@
 ﻿using InventoryManagement.Models;
+using InventoryManagement.Repositories;
 using InventoryManagement.Services;
 
 namespace MainEntry
@@ -8,7 +9,8 @@ namespace MainEntry
         static void Main(string[] args)
         {
             bool programFlag = true;
-            ProductService productService = new ProductService();
+            IProductRepository repository = new ProductRepository();
+            ProductService productService = new ProductService(repository);
 
             Elektronic Laptop = new Elektronic(1, "Asus VivoBook", 14000000, 3, 6);
 

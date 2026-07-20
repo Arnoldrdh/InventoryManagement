@@ -7,8 +7,13 @@ namespace InventoryManagement.Services
 {
     public class ProductService
     {
-        private ProductRepository repository = new ProductRepository();
+        private IProductRepository repository;
         private int nextID = 1;
+
+        public ProductService(IProductRepository repository)
+        {
+            this.repository = repository;
+        }
 
         public bool AddProductElectronic(string name, int price, int stock, int warrantyMonth)
         {
@@ -52,55 +57,52 @@ namespace InventoryManagement.Services
 
         public bool ChangeProductPrice(int id, int newPrice)
         {
-            foreach (var product in repository.GetAll())
+            Products product = repository.FindById(id);
+
+            if (product == null)
             {
-                if (product.ProductId == id)
-                {
-                    return product.ChangePrice(newPrice);
-                }
+                return false;
             }
 
-            return false;
+            return product.ChangePrice(newPrice);
+ 
         }
 
         public bool IncreaseProductStock(int id, int quantity)
         {
-            foreach (var product in repository.GetAll())
+            Products product = repository.FindById(id);
+
+            if (product == null)
             {
-                if (product.ProductId == id)
-                {
-                    return product.IncreaseStock(quantity);
-                }
+                return false;
             }
 
-            return false;
+            return product.IncreaseStock(quantity);
         }
 
         public bool DecreaseProductStock(int id, int quantity)
         {
-            foreach (var product in repository.GetAll())
+            Products product = repository.FindById(id);
+
+            if (product == null)
             {
-                if (product.ProductId == id)
-                {
-                    return product.DecreaseStock(quantity);
-                }
+                return false;
             }
 
-            return false;
+            return product.DecreaseStock(quantity);
         }
 
 
         public bool ChangeProductName (int id,string newName)
         {
-            foreach (var product in repository.GetAll())
+            Products product = repository.FindById(id);
+
+            if (product == null)
             {
-                if (product.ProductId == id)
-                {
-                    return product.ChangeName(newName);
-                }
+                return false;
             }
 
-            return false;
+            return product.ChangeName(newName);
         }
     }
 }

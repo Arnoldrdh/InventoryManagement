@@ -12,5 +12,7 @@ namespace InventoryManagement.Repositories
         void Add(Products product);
 
         int GenerateNextID();
+
+        Products FindById(int id);
     }
 }

@@ -18,7 +18,12 @@ namespace InventoryManagement.Repositories
         {
             LoadFromFile();
             nextID = CalculateNextID();
-        } 
+        }
+
+        public List<Products> GetAll()
+        {
+            return products;
+        }
 
         public Products MapToProduct(ProductData productData)
         {
@@ -107,6 +112,19 @@ namespace InventoryManagement.Repositories
             }
         }
 
+        public Products FindById (int productId)
+        {
+            foreach (var product in products)
+            {
+                if (product.ProductId == productId)
+                {
+                    return product;                   
+                }
+            }
+
+            return null;
+        }
+
         private int CalculateNextID()
         {
             int currentMaxID = 0;
@@ -117,14 +135,15 @@ namespace InventoryManagement.Repositories
             }
             foreach (var product in products)
             {
-                if(product.ProductId > currentMaxID) { 
+                if (product.ProductId > currentMaxID)
+                {
                     currentMaxID = product.ProductId;
                 }
 
             }
 
             return currentMaxID + 1;
-            
+
         }
 
         public int GenerateNextID()
@@ -140,10 +159,9 @@ namespace InventoryManagement.Repositories
             SaveToFile();
         }
 
-        public List<Products> GetAll()
-        {
-            return products;
-        }
+       
+
+
     }
 
 
