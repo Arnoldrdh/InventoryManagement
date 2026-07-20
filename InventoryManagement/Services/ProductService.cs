@@ -104,5 +104,12 @@ namespace InventoryManagement.Services
 
             return product.ChangeName(newName);
         }
+
+        public bool Delete(int id)
+        {
+
+            return repository.DeleteProduct(id);
+
+        }
     }
 }

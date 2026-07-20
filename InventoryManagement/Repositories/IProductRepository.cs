@@ -14,5 +14,7 @@ namespace InventoryManagement.Repositories
         int GenerateNextID();
 
         Products FindById(int id);
+
+        bool Delete(int id);
     }
 }

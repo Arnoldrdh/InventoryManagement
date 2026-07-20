@@ -13,7 +13,9 @@ namespace InventoryManagement.Repositories
         private const string FilePath = "product.json";
         private List<Products> products = new List<Products>();
         private int nextID;
-        
+
+
+        // Constructor
         public ProductRepository()
         {
             LoadFromFile();
@@ -112,17 +114,22 @@ namespace InventoryManagement.Repositories
             }
         }
 
-        public Products FindById (int productId)
+        public Products FindById (int Id)
         {
-            foreach (var product in products)
+
+            return products.FirstOrDefault(product => product.ProductId ==  Id);
+        }
+
+        public List<Products> Search (string keyword)
+        {
+            var result = products.Where(product => product.ProductName.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (result.Count == 0)
             {
-                if (product.ProductId == productId)
-                {
-                    return product;                   
-                }
+                return new List<Products>();
             }
 
-            return null;
+            return result;
         }
 
         private int CalculateNextID()
@@ -159,7 +166,23 @@ namespace InventoryManagement.Repositories
             SaveToFile();
         }
 
-       
+
+        public bool Delete(int id)
+        {
+            Products product = FindById(id);
+
+            if (product == null)
+            {
+                return false;
+            }
+
+            products.Remove(product);
+            SaveToFile();
+
+            return true;
+            
+        }
+
 
 
     }
